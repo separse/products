@@ -1,0 +1,84 @@
+::ng-deep {
+  .ant-layout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    img {
+      height: 100%;
+      width: auto;
+    }
+
+  }
+  .ant-layout {
+    height: 100vh;
+  }
+  .ant-card {
+    width: 200px;
+  }
+  .ant-card-cover {
+    text-align: -webkit-center;
+    img {
+      margin-top: 1rem;
+      max-width: 200px;
+      max-height: 100px;
+      width: auto;
+    }
+  }
+  .ant-pagination {
+    text-align: center;
+  }
+  .ant-dropdown-link {
+    color: rgba($color: #000000, $alpha: 0.8);
+    background-color: white;
+    padding: 0.5rem 1rem;
+  }
+  .ant-input-group {
+    width: 30%;
+  }
+  .ant-checkbox-wrapper {
+    margin: 0.5rem;
+    display: flex;
+    .ant-checkbox + span {
+      color: white;
+    }
+  }
+  .ant-checkbox-group-item {
+    margin: 0.5rem;
+  }
+  .ant-checkbox-group-item + .ant-checkbox-group-item {
+    margin-left: 0.5rem;
+  }
+  .ant-result {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 2rem 0;
+}
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.price-container {
+  margin: 1rem 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.slider-container {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  nz-slider {
+    margin-left: 1rem;
+    width: 80%;
+  }
+}

@@ -1,0 +1,28 @@
+<section *ngIf="isLoading" class="spinner-container">
+  <nz-spin nzSimple></nz-spin>
+</section>
+<section *ngIf="!isLoading && product">
+  <div>
+    <nz-rate [ngModel]="product.rating.rate"></nz-rate>
+    <nz-descriptions nzTitle="{{ product.title }}">
+      <nz-descriptions-item nzTitle="Price">
+        {{ product.price | currency }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Rate">
+        {{ product.rating.rate }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Count">
+        {{ product.rating.count }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Category">
+        {{ product.category }}
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Description">
+        {{ product.description }}
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </div>
+  <div class="image-container">
+    <img [src]="product.image" />
+  </div>
+</section>

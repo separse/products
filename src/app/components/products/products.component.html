@@ -1,0 +1,128 @@
+<nz-layout>
+  <!-- Header -->
+  <nz-header>
+    <nz-input-group nzSearch nzSize="large">
+      <input
+        type="text"
+        nz-input
+        placeholder="input search text"
+        (keyup)="getProducts()"
+        [(ngModel)]="searchedKey"
+      />
+    </nz-input-group>
+      <img src="/assets/bluebitsoft.jpg">
+  </nz-header>
+  <nz-layout>
+    <!-- Spinner -->
+    <nz-content *ngIf="isLoading" class="spinner-container">
+      <nz-spin nzSimple></nz-spin>
+    </nz-content>
+
+    <!-- Content -->
+    <nz-content *ngIf="!isLoading">
+      <!-- sort section -->
+      <section class="price-container">
+        <!-- sort  -->
+        <div>
+          <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+            Sort by Price
+            <i nz-icon nzType="down"></i>
+          </a>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item (click)="changeSort('null')">None</li>
+              <li nz-menu-item (click)="changeSort('ascending')">Ascending</li>
+              <li nz-menu-item (click)="changeSort('descending')">
+                Descending
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+
+        <!-- slider  -->
+        <div class="slider-container">
+          <span>Range of Price:</span>
+          <nz-slider
+            nzRange
+            [nzStep]="10"
+            [nzMax]="1000"
+            [(ngModel)]="rangeValue"
+            (nzOnAfterChange)="onAfterChange($event)"
+          ></nz-slider>
+        </div>
+      </section>
+
+      <!-- products section -->
+      <section *ngIf="products.length > 0" class="grid-container">
+        <div
+          *ngFor="let product of products"
+          [routerLink]="['/product/', product.id]"
+        >
+          <nz-card nzHoverable [nzCover]="coverTemplate">
+            <nz-card-meta
+              nzTitle="{{ product.title }}"
+              nzDescription="{{ product.price | currency }}"
+            ></nz-card-meta>
+          </nz-card>
+          <ng-template #coverTemplate>
+            <img [src]="product.image" />
+          </ng-template>
+        </div>
+      </section>
+
+      <!-- no product -->
+      <nz-result *ngIf="products.length === 0" nzStatus="info" nzTitle="There is no product according to your filters">
+        <div nz-result-extra></div>
+      </nz-result>
+    </nz-content>
+    <!-- Sidebar -->
+
+    <nz-sider>
+      <div style="border-bottom: 1px solid rgb(233, 233, 233); margin-top: 3rem;">
+        <label
+          nz-checkbox
+          [(ngModel)]="isFiltered"
+          (ngModelChange)="getProducts()"
+        >
+          Filter on Categories
+        </label>
+      </div>
+      <br />
+      <label
+        nz-checkbox
+        [nzDisabled]="!isFiltered"
+        [nzIndeterminate]="indeterminate"
+        [(ngModel)]="allChecked"
+        (ngModelChange)="updateAllChecked()"
+      >
+        Check all
+      </label>
+      <br />
+      <nz-checkbox-group
+        [nzDisabled]="!isFiltered"
+        [(ngModel)]="checkOptionsOne"
+        (ngModelChange)="updateSingleChecked()"
+      ></nz-checkbox-group>
+      <br />
+      <div style="border-top: 1px solid rgb(233, 233, 233)">
+        <label
+          nz-checkbox
+          [(ngModel)]="isAvailable"
+          (ngModelChange)="getProducts()"
+        >
+          Available
+        </label>
+      </div>
+    </nz-sider>
+  </nz-layout>
+
+  <!-- Footer -->
+  <nz-footer>
+    <nz-pagination
+      *ngIf="!isLoading"
+      [nzPageIndex]="pageIndex"
+      [nzTotal]="totalPages"
+      (nzPageIndexChange)="changePageIndex($event)"
+    ></nz-pagination>
+  </nz-footer>
+</nz-layout>

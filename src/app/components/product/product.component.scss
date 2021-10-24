@@ -1,0 +1,28 @@
+section {
+  margin: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.image-container {
+  text-align: center;
+  img {
+    max-width: 60%;
+    max-height: 300px;
+    width: auto;
+  }
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+::ng-deep {
+  .ant-descriptions-row {
+    display: flex;
+    flex-direction: column;
+  }
+}
