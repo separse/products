@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ApiService } from 'src/app/api.service';
 import { Product } from 'src/app/product.model';
 
@@ -7,8 +8,9 @@ import { Product } from 'src/app/product.model';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
   products!: Product[];
+  productsSubscription!: Subscription;
   pageIndex = 1;
   startIndex = 0;
   endIndex = 10;
@@ -32,7 +34,7 @@ export class ProductsComponent implements OnInit {
 
   getProducts() {
     this.isLoading = true;
-    this.apiService.getProducts().subscribe((res) => {
+    this.productsSubscription = this.apiService.getProducts().subscribe((res) => {
       res.forEach((product) => {
         if (this.checkOptionsOne.findIndex(checkOption => checkOption.label === product.category) === -1) {
           const checkOption = {
@@ -147,6 +149,10 @@ export class ProductsComponent implements OnInit {
     this.rangeValue = value;
 
     this.getProducts();
+  }
+
+  ngOnDestroy() {
+    this.productsSubscription.unsubscribe();
   }
 
 }
